@@ -11,7 +11,6 @@ let field = [
 let step = 1;
 let winnerExist = false;
 startGame();
-checkWinner();
 addResetListener();
 
 
@@ -86,6 +85,7 @@ function cellClickHandler (row, col) {
     step += 1;
     let WINNER = checkWinner();
     if (WINNER) {
+        winnerExist = true;
         let player = WINNER[0];
         for (const element of WINNER[1].slice(0, WINNER[1].length)) {
             renderSymbolInCell(player, element[0], element[1], 'red')
