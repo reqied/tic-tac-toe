@@ -12,8 +12,33 @@ let step = 1;
 startGame();
 addResetListener();
 
+
 function startGame () {
     renderGrid(3);
+}
+function checkWinner () {
+    for (let i = 0; i < field.length; i++) {
+        if (field[i].all === CROSS)
+            return {CROSS: field[i]};
+        if (field[i].all === ZERO)
+            return {ZERO: field[i]};
+    }
+    for (let i = 0; i < field.length; i++) {
+        let column = [field[0][i], field[1][i], field[2][i]];
+        if (column.all === CROSS) {
+            return {CROSS: column};
+        }
+        if (column.all === ZERO) {
+            return {ZERO: column};
+        }
+    }
+    let diagonal = [field[0][0], field[1][1], field[2][2]]
+    if (diagonal.all === CROSS) {
+        return {CROSS: diagonal};
+    }
+    if (diagonal.all === ZERO) {
+        return {ZERO: diagonal};
+    }
 }
 
 function renderGrid (dimension) {
