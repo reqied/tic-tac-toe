@@ -90,6 +90,7 @@ function cellClickHandler (row, col) {
         for (const element of WINNER[1].slice(0, WINNER[1].length)) {
             renderSymbolInCell(player, element[0], element[1], 'red')
         }
+        alert(`Победил ${player}`);
     }
     if (step === 10) alert("Победила дружба");
 }
@@ -113,6 +114,8 @@ function addResetListener () {
 
 function resetClickHandler () {
     renderGrid(3)
+    winnerExist = false;
+    step = 1;
     console.log('reset!');
 }
 
