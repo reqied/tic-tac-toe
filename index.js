@@ -18,7 +18,6 @@ function startGame () {
 
 function renderGrid (dimension) {
     container.innerHTML = '';
-
     for (let i = 0; i < dimension; i++) {
         const row = document.createElement('tr');
         for (let j = 0; j < dimension; j++) {
@@ -45,9 +44,7 @@ function cellClickHandler (row, col) {
         field[row][col] = ZERO;
     }
     step += 1;
-    /* Пользоваться методом для размещения символа в клетке так:
-        renderSymbolInCell(ZERO, row, col);
-     */
+    if (step === 10) alert("Победила дружба");
 }
 
 function renderSymbolInCell (symbol, row, col, color = '#333') {
