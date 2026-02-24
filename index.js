@@ -3,12 +3,12 @@ const ZERO = 'O';
 const EMPTY = ' ';
 
 const container = document.getElementById('fieldWrapper');
-const field = [
+let field = [
         [EMPTY, EMPTY, EMPTY],
         [EMPTY, EMPTY, EMPTY],
         [EMPTY, EMPTY, EMPTY],
     ];
-
+let step = 1;
 startGame();
 addResetListener();
 
@@ -35,7 +35,14 @@ function cellClickHandler (row, col) {
 
     console.log(`Clicked on cell: ${row}, ${col}`);
 
-
+    if (step % 2 === 1){
+        renderSymbolInCell(CROSS, row, col)
+        field[row][col] = CROSS;
+    } else {
+        renderSymbolInCell(ZERO, row, col)
+        field[row][col] = ZERO;
+    }
+    step += 1;
     /* Пользоваться методом для размещения символа в клетке так:
         renderSymbolInCell(ZERO, row, col);
      */
