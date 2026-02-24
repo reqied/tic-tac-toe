@@ -10,6 +10,7 @@ let field = [
     ];
 let step = 1;
 startGame();
+checkWinner();
 addResetListener();
 
 
@@ -18,27 +19,39 @@ function startGame () {
 }
 function checkWinner () {
     for (let i = 0; i < field.length; i++) {
-        if (field[i].all === CROSS)
-            return {CROSS: field[i]};
-        if (field[i].all === ZERO)
-            return {ZERO: field[i]};
+        let check = [[i,0], [i,1], [i,2]]
+        if (field[i].every(val => val === CROSS))
+            return [CROSS, check];
+        if (field[i].every(val => val === ZERO))
+            return [ZERO, check];
     }
     for (let i = 0; i < field.length; i++) {
         let column = [field[0][i], field[1][i], field[2][i]];
-        if (column.all === CROSS) {
-            return {CROSS: column};
+        let check = [[0,i], [1,i], [2,i]]
+        if (column.every(val => val === CROSS)) {
+            return [CROSS, check];
         }
-        if (column.all === ZERO) {
-            return {ZERO: column};
+        if (column.every(val => val === ZERO)) {
+            return [ZERO, check];
         }
     }
-    let diagonal = [field[0][0], field[1][1], field[2][2]]
-    if (diagonal.all === CROSS) {
-        return {CROSS: diagonal};
+    let diagonal1 = [field[0][0], field[1][1], field[2][2]]
+    let check1 = [[0,0], [1,1], [2,2]];
+    if (diagonal1.every(val => val === CROSS)) {
+        return [CROSS, check1];
     }
-    if (diagonal.all === ZERO) {
-        return {ZERO: diagonal};
+    if (diagonal1.every(val => val === ZERO)) {
+        return [ZERO, check1];
     }
+    let diagonal2 = [field[0][2], field[1][1], field[2][0]]
+    let check2 = [[0,2], [1,1], [2,0]];
+    if (diagonal2.every(val => val === CROSS)) {
+        return [CROSS, check2];
+    }
+    if (diagonal2.every(val => val === ZERO)) {
+        return [ZERO, check2];
+    }
+    return null;
 }
 
 function renderGrid (dimension) {
@@ -69,6 +82,13 @@ function cellClickHandler (row, col) {
         field[row][col] = ZERO;
     }
     step += 1;
+    let WINNER = checkWinner();
+    if (WINNER) {
+        let player = WINNER[0];
+        for (const element of WINNER[1].slice(0, WINNER[1].length)) {
+            renderSymbolInCell(player, element[0], element[1], 'red')
+        }
+    }
     if (step === 10) alert("Победила дружба");
 }
 
