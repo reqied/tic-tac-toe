@@ -9,6 +9,7 @@ let field = [
         [EMPTY, EMPTY, EMPTY],
     ];
 let step = 1;
+let winnerExist = false;
 startGame();
 addResetListener();
 
@@ -48,6 +49,7 @@ function renderGrid (dimension) {
         for (let j = 0; j < dimension; j++) {
             const cell = document.createElement('td');
             cell.textContent = EMPTY;
+            field[i][j] = EMPTY;
             cell.addEventListener('click', () => cellClickHandler(i, j));
             row.appendChild(cell);
         }
@@ -58,7 +60,7 @@ function renderGrid (dimension) {
 function cellClickHandler (row, col) {
 
     console.log(`Clicked on cell: ${row}, ${col}`);
-    if (field[row][col] !== EMPTY) {
+    if (field[row][col] !== EMPTY || winnerExist) {
         return;
     }
     if (step % 2 === 1){
@@ -90,6 +92,7 @@ function addResetListener () {
 }
 
 function resetClickHandler () {
+    renderGrid(3)
     console.log('reset!');
 }
 
