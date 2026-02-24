@@ -3,6 +3,11 @@ const ZERO = 'O';
 const EMPTY = ' ';
 
 const container = document.getElementById('fieldWrapper');
+const field = [
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
+        [EMPTY, EMPTY, EMPTY],
+    ];
 
 startGame();
 addResetListener();
@@ -27,7 +32,7 @@ function renderGrid (dimension) {
 }
 
 function cellClickHandler (row, col) {
-    // Пиши код тут
+
     console.log(`Clicked on cell: ${row}, ${col}`);
 
 
